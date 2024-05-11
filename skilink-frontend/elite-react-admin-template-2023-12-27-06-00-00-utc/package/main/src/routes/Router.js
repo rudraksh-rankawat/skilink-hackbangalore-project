@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
 import Loadable from '../layouts/loader/Loadable';
-import Freelancer from '../views/auth/freelancer';
+import Login from '../views/auth/Login';
 /****Layouts*****/
 
 const FullLayout = Loadable(lazy(() => import('../layouts/FullLayout')));
@@ -95,6 +95,7 @@ const CASL = Loadable(lazy(() => import('../views/apps/accessControlCASL/AccessC
 /***** Auth Pages ****/
 const Error = Loadable(lazy(() => import('../views/auth/Error')));
 const RegisterFormik = Loadable(lazy(() => import('../views/auth/RegisterFormik')));
+const RegisterFormikRecruiter = Loadable(lazy(() => import('../views/auth/RegisterFormikRecruiter')));
 const LoginFormik = Loadable(lazy(() => import('../views/auth/LoginFormik')));
 const Maintanance = Loadable(lazy(() => import('../views/auth/Maintanance')));
 const LockScreen = Loadable(lazy(() => import('../views/auth/LockScreen')));
@@ -215,11 +216,12 @@ const ThemeRoutes = [
       { path: '404', element: <Error /> },
       { path: '*', element: <Navigate to="/auth/loginformik" /> },
       { path: 'registerformik', element: <RegisterFormik /> },
+      { path: 'registerformikrecruiter', element: <RegisterFormikRecruiter /> },
       { path: 'loginformik', element: <LoginFormik /> },
       { path: 'maintanance', element: <Maintanance /> },
       { path: 'lockscreen', element: <LockScreen /> },
       { path: 'recoverpwd', element: <RecoverPassword /> },
-      {path: 'freelancer', element: <Freelancer /> },
+      {path: 'Login', element: <Login /> },
     ],
   },
 ];
