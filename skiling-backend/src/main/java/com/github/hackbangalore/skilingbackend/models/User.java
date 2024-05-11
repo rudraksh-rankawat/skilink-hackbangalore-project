@@ -13,13 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private String userId;
+    private Long userId;
     private String userPicLink;
     private String name;
     private String email;
     private String githubLink;
     private String linkedinLink;
     private UserType userType;
-    private List<Project> projects;
+    private List<UserProject> UserProjects;
     private List<String> skills;
 }
