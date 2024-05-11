@@ -20,8 +20,16 @@ public class UserController {
         return userService.getUser(userID);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public User createUser(@RequestBody User user) throws ExecutionException, InterruptedException {
         return userService.createUser(user);
+    }
+    @PutMapping
+    public User updateUser(@RequestBody User user){
+        return userService.updateUser(user);
+    }
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable String userId) {
+        userService.deleteUser(userId);
     }
 }

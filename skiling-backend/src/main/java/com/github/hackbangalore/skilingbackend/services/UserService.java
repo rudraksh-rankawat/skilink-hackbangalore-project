@@ -29,10 +29,19 @@ public class UserService {
     }
    public User createUser(User user) throws ExecutionException, InterruptedException {
        Firestore dbFireStore = FirestoreClient.getFirestore();
-       DocumentReference documentReference = dbFireStore.collection("user").document(user.getName());
+       DocumentReference documentReference = dbFireStore.collection("user").document(String.valueOf(user.getUserId()));
        ApiFuture<WriteResult> collectionsApiFuture = documentReference.set(user);
        // Wait for the write to complete
        collectionsApiFuture.get();
        return user;
+    }
+    public User updateUser(User user){
+        Firestore dbFireStore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("user").document(String.valueOf(user.getUserId())).set(user);
+        return user;
+    }
+    public void deleteUser(String userId) {
+        Firestore dbFireStore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> writeResult = dbFireStore.collection("user").document(userId).delete();
     }
 }
