@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
+import java.util.List;
 
 @Repository
 public class FireBase {
@@ -22,6 +23,10 @@ public class FireBase {
                 .build();
 
 
-        FirebaseApp.initializeApp(options);
+        List<FirebaseApp> firebaseApps = FirebaseApp.getApps();
+        if(firebaseApps.isEmpty()){
+            // If not, initialize it
+            FirebaseApp.initializeApp(options);
+        }
     }
 }
