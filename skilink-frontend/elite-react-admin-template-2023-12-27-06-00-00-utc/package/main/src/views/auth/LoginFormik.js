@@ -279,14 +279,14 @@ const LoginFormik = () => {
           <Col lg="12" className="loginContainer text-center">
             <AuthLogo />
             <h5 className="mt-4 mb-3">Welcome!</h5>
-            <Button tag={Link} to="/auth/signup/recruiter" color="primary" className="me-1 mb-2">
+            <Button tag={Link} to="/auth/RegisterFormikRecruiter" color="primary" className="me-1 mb-2">
               Sign Up as a Recruiter
             </Button>
-            <Button tag={Link} to="/auth/freelancer" color="primary" className="mb-2">
+            <Button tag={Link} to="/auth/RegisterFormik" color="primary" className="mb-2">
               Sign Up as a Freelancer
             </Button>
             <p>
-              Already have an account? <Link to="/auth/login">Login</Link>
+              Already have an account? <Link to="/auth/Login">Login</Link>
             </p>
           </Col>
         </Row>

@@ -7,7 +7,7 @@ import AuthLogo from "../../layouts/logo/AuthLogo";
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 
-const Freelancer = () => {
+const Login = () => {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -98,4 +98,4 @@ const Freelancer = () => {
   );
 };
 
-export default Freelancer;
+export default Login;

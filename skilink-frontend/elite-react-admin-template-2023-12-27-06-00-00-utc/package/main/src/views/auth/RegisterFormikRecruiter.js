@@ -7,7 +7,7 @@ import AuthLogo from "../../layouts/logo/AuthLogo";
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 
-const RegisterFormik = () => {
+const RegisterFormikRecruiter = () => {
   const initialValues = {
     UserName: '',
     email: '',
@@ -38,7 +38,7 @@ const RegisterFormik = () => {
             <AuthLogo />
             <Card>
               <CardBody className="p-4 m-1">
-                <h5 className="mb-0">Register as Freelancer</h5>
+                <h5 className="mb-0">Register as Recruiter !!</h5>
                 <small className="pb-4 d-block">
                   Already have an account? <Link to="/auth/loginformik">Login</Link>
                 </small>
@@ -127,10 +127,10 @@ const RegisterFormik = () => {
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Button type="submit" color="primary" className="register">
+                        <Button type="submit" color="primary" className="me-2">
                           Register
                         </Button>
-                        <Button type="reset" color="secondary" className="reset-button">
+                        <Button type="reset" color="secondary">
                           Reset
                         </Button>
                       </FormGroup>
@@ -146,4 +146,4 @@ const RegisterFormik = () => {
   );
 };
 
-export default RegisterFormik;
+export default RegisterFormikRecruiter;
