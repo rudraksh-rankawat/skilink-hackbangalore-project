@@ -19,6 +19,7 @@ public class User {
     private String email;
     private String githubLink;
     private String linkedinLink;
+    private String password;
     private UserType userType;
     private List<UserProject> userProjects;
     private List<String> skills;

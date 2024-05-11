@@ -1,5 +1,6 @@
 package com.github.hackbangalore.skilingbackend.services;
 
+import com.github.hackbangalore.skilingbackend.dtos.UserResponseDto;
 import com.github.hackbangalore.skilingbackend.models.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -13,9 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserService {
-
-
-    public User getUser(String userId) throws ExecutionException, InterruptedException {
+    public UserResponseDto getUser(String userId) throws ExecutionException, InterruptedException {
         Firestore dbFireStore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFireStore.collection("user").document(userId);
         ApiFuture<DocumentSnapshot> future = documentReference.get();
@@ -23,22 +22,22 @@ public class UserService {
         User user;
         if (document.exists()) {
             user = document.toObject(User.class);
-            return user;
+            return new UserResponseDto(user);
         }
         return null;
     }
-   public User createUser(User user) throws ExecutionException, InterruptedException {
+   public UserResponseDto createUser(User user) throws ExecutionException, InterruptedException {
        Firestore dbFireStore = FirestoreClient.getFirestore();
        DocumentReference documentReference = dbFireStore.collection("user").document(String.valueOf(user.getUserId()));
        ApiFuture<WriteResult> collectionsApiFuture = documentReference.set(user);
        // Wait for the write to complete
        collectionsApiFuture.get();
-       return user;
+       return new UserResponseDto(user);
     }
-    public User updateUser(User user){
+    public UserResponseDto updateUser(User user){
         Firestore dbFireStore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionsApiFuture = dbFireStore.collection("user").document(String.valueOf(user.getUserId())).set(user);
-        return user;
+        return new UserResponseDto(user);
     }
     public void deleteUser(String userId) {
         Firestore dbFireStore = FirestoreClient.getFirestore();
