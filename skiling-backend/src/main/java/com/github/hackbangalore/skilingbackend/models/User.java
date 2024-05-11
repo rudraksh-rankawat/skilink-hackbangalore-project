@@ -20,6 +20,6 @@ public class User {
     private String githubLink;
     private String linkedinLink;
     private UserType userType;
-    private List<UserProject> UserProjects;
+    private List<UserProject> userProjects;
     private List<String> skills;
 }
