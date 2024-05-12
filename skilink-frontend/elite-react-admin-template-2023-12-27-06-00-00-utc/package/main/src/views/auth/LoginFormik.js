@@ -207,86 +207,31 @@ export default LoginFormik;
 */
 
 
-
-// import React from 'react';
-// import { Button, Container, Row, Col } from 'reactstrap';
-// import { Link } from 'react-router-dom';
-// import AuthLogo from "../../layouts/logo/AuthLogo";
-
-// const LoginFormik = () => {
-//   return (
-//     <div className="loginBox">
-//       <Container fluid className="h-100">
-//         <Row className="justify-content-center align-items-center h-100">
-//           <Col lg="12" className="loginContainer text-center">
-//             <AuthLogo />
-//             <h5 className="mt-4 mb-3">Welcome!</h5>
-//             <Button tag={Link} to="/auth/signup/recruiter" color="primary" className="me-1">
-//               Sign Up as a Recruiter
-//             </Button>
-//             <Button tag={Link} to="/auth/signup/freelancer" color="primary">
-//               Sign Up as a Freelancer
-//             </Button>
-//           </Col>
-//         </Row>
-//       </Container>
-//     </div>
-//   );
-// };
-
-// export default LoginFormik;
-
-
-// import React from 'react';
-// import { Button, Container, Row, Col } from 'reactstrap';
-// import { Link } from 'react-router-dom';
-// import AuthLogo from "../../layouts/logo/AuthLogo";
-
-// const LoginFormik = () => {
-//   return (
-//     <div className="loginBox">
-//       <Container fluid className="h-100">
-//         <Row className="justify-content-center align-items-center h-100">
-//           <Col lg="12" className="loginContainer text-center">
-//             <AuthLogo />
-//             <h5 className="mt-4 mb-3">Welcome!</h5>
-//             <Button tag={Link} to="/auth/signup/recruiter" color="primary" className="me-1 mb-2">
-//               Sign Up as a Recruiter
-//             </Button>
-//             <Button tag={Link} to="/auth/signup/freelancer" color="primary">
-//               Sign Up as a Freelancer
-//             </Button>
-//           </Col>
-//         </Row>
-//       </Container>
-//     </div>
-//   );
-// };
-
-// export default LoginFormik;
-
-
 import React from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import AuthLogo from "../../layouts/logo/AuthLogo";
+import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
+import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
 
 const LoginFormik = () => {
   return (
     <div className="loginBox">
+      <LeftBg className="position-absolute left bottom-0" style={{ width: '400px', height: '400px' , filter: 'grayscale(100%) brightness(0%)' }} />
+      <RightBg className="position-absolute end-0 top" style={{ width: '400px', height: '400px' , filter: 'grayscale(100%) brightness(0%)'}} />
       <Container fluid className="h-100">
         <Row className="justify-content-center align-items-center h-100">
           <Col lg="12" className="loginContainer text-center">
-            <AuthLogo />
-            <h5 className="mt-4 mb-3">Welcome!</h5>
-            <Button tag={Link} to="/auth/RegisterFormikRecruiter" color="primary" className="me-1 mb-2">
+            <AuthLogo style={{ width: '400px', height: '400px' }} />
+            <h5 className="mt-4 mb-3" style={{ fontSize: '24px' }}>Welcome to Skilink!</h5>
+            <Button tag={Link} to="/auth/RegisterFormikRecruiter" color="dark" className="me-1 mb-2" style={{ fontSize: '18px' }}>
               Sign Up as a Recruiter
             </Button>
-            <Button tag={Link} to="/auth/RegisterFormik" color="primary" className="mb-2">
+            <Button tag={Link} to="/auth/RegisterFormik" color="dark" className="mb-2" style={{ fontSize: '18px' }}>
               Sign Up as a Freelancer
             </Button>
-            <p>
-              Already have an account? <Link to="/auth/Login">Login</Link>
+            <p style={{ fontSize: '16px' }}>
+              Already have an account? <Link to="/auth/Login" style={{ color: 'blue', fontSize: '16px' }}>Login</Link>
             </p>
           </Col>
         </Row>
