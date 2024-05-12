@@ -38,9 +38,9 @@
 //             <AuthLogo />
 //             <Card>
 //               <CardBody className="p-4 m-1">
-//                 <h5 className="mb-0">Register as Recruiter</h5>
+//                 <h5 className="mb-0">Register as Recruiter !!</h5>
 //                 <small className="pb-4 d-block">
-//                   Already have an account? <Link to="/auth/loginformik" style={{ color: 'blue', fontSize: '16px' }}>Login</Link>
+//                   Already have an account? <Link to="/auth/loginformik">Login</Link>
 //                 </small>
 //                 <Formik
 //                   initialValues={initialValues}
@@ -127,7 +127,7 @@
 //                         />
 //                       </FormGroup>
 //                       <FormGroup>
-//                         <Button type="submit" color="dark" className="me-2">
+//                         <Button type="submit" color="primary" className="me-2">
 //                           Register
 //                         </Button>
 //                         <Button type="reset" color="secondary">
@@ -149,11 +149,13 @@
 // export default RegisterFormikRecruiter;
 
 
+
 import React from 'react';
 import { Button, Label, FormGroup, Container, Row, Col, Card, CardBody } from 'reactstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import AuthLogo from "../../layouts/logo/AuthLogo";
 import { ReactComponent as LeftBg } from '../../assets/images/bg/login-bgleft.svg';
 import { ReactComponent as RightBg } from '../../assets/images/bg/login-bg-right.svg';
@@ -164,11 +166,12 @@ const RegisterFormikRecruiter = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    linkedinLink: '',
     acceptTerms: false,
   };
 
   const validationSchema = Yup.object().shape({
-    UserName: Yup.string().required('User Name is required'),
+    UserName: Yup.string().required('UserName is required'),
     email: Yup.string().email('Email is invalid').required('Email is required'),
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
@@ -176,29 +179,52 @@ const RegisterFormikRecruiter = () => {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), null], 'Passwords must match')
       .required('Confirm Password is required'),
+    linkedinLink: Yup.string().url('LinkedIn Link must be a valid URL').required('LinkedIn Link is required'),
     acceptTerms: Yup.bool().oneOf([true], 'Accept Terms & Conditions is required'),
   });
 
+  const handleSubmit = (fields) => {
+    const userData = {
+      userId: 1, // Adjust as needed, e.g., generate dynamically
+      userPicLink: '',
+      name: fields.UserName,
+      email: fields.email,
+      linkedinLink: fields.linkedinLink,
+      password: fields.password,
+      userType: 'RECRUITER', // Set user type accordingly
+      userProjects: null,
+      skills: null,
+    };
+
+    axios.post('http://localhost:8080/user', userData)
+      .then(response => {
+        console.log('User registered successfully:', response.data);
+        // Handle success actions, e.g., redirect or show a message
+      })
+      .catch(error => {
+        console.error('There was an error registering the user!', error);
+        // Handle error actions
+      });
+  };
+
   return (
     <div className="loginBox">
-      <LeftBg className="position-absolute left bottom-0" style={{ fill: 'black' , filter: 'grayscale(100%) brightness(0%)'}} />
-      <RightBg className="position-absolute end-0 top" style={{ fill: 'black' , filter: 'grayscale(100%) brightness(0%)'}} />
+      <LeftBg className="position-absolute left bottom-0" />
+      <RightBg className="position-absolute end-0 top" />
       <Container fluid className="h-100">
         <Row className="justify-content-center align-items-center h-100">
-          <Col lg="6" md="8" sm="10" xs="12" className="loginContainer">
-            <AuthLogo style={{ width: '200px', height: '200px' }} />
+          <Col lg="12" className="loginContainer">
+            <AuthLogo />
             <Card>
               <CardBody className="p-4 m-1">
-                <h5 className="mb-0" style={{ fontSize: '24px' }}>Register as Recruiter</h5>
-                <small className="pb-4 d-block" style={{ fontSize: '16px' }}>
-                  Already have an account? <Link to="/auth/Login" style={{ color: 'blue', fontSize: '16px' }}>Login</Link>
+                <h5 className="mb-0">Register as Recruiter !!</h5>
+                <small className="pb-4 d-block">
+                  Already have an account? <Link to="/auth/loginformik">Login</Link>
                 </small>
                 <Formik
                   initialValues={initialValues}
                   validationSchema={validationSchema}
-                  // onSubmit={(fields) => {
-                  //   alert(`SUCCESS!! :-)\n\n${JSON.stringify(fields, null, 4)}`);
-                  // }}
+                  onSubmit={handleSubmit}
                   render={({ errors, touched }) => (
                     <Form>
                       <FormGroup>
@@ -207,9 +233,8 @@ const RegisterFormikRecruiter = () => {
                           name="UserName"
                           type="text"
                           className={`form-control ${
-                            errors.UserName && touched.UserName ? 'is-invalid' : ''
+                            errors.UserName && touched.UserName ? ' is-invalid' : ''
                           }`}
-                          style={{ fontSize: '18px' }}
                         />
                         <ErrorMessage
                           name="UserName"
@@ -223,56 +248,59 @@ const RegisterFormikRecruiter = () => {
                         <Field
                           name="email"
                           type="text"
-                          className={`form-control ${
-                            errors.email && touched.email ? 'is-invalid' : ''
+                          className={`form-control${
+                            errors.email && touched.email ? ' is-invalid' : ''
                           }`}
-                          style={{ fontSize: '18px' }}
                         />
                         <ErrorMessage name="email" component="div" className="invalid-feedback" />
                       </FormGroup>
+                      
                       <FormGroup>
                         <Label htmlFor="password">Password</Label>
                         <Field
                           name="password"
                           type="password"
-                          className={`form-control ${
-                            errors.password && touched.password ? 'is-invalid' : ''
+                          className={`form-control${
+                            errors.password && touched.password ? ' is-invalid' : ''
                           }`}
-                          style={{ fontSize: '18px' }}
                         />
-                        <ErrorMessage
-                          name="password"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="password" component="div" className="invalid-feedback" />
                       </FormGroup>
+
                       <FormGroup>
                         <Label htmlFor="confirmPassword">Confirm Password</Label>
                         <Field
                           name="confirmPassword"
                           type="password"
-                          className={`form-control ${
-                            errors.confirmPassword && touched.confirmPassword ? 'is-invalid' : ''
+                          className={`form-control${
+                            errors.confirmPassword && touched.confirmPassword ? ' is-invalid' : ''
                           }`}
-                          style={{ fontSize: '18px' }}
                         />
-                        <ErrorMessage
-                          name="confirmPassword"
-                          component="div"
-                          className="invalid-feedback"
-                        />
+                        <ErrorMessage name="confirmPassword" component="div" className="invalid-feedback" />
                       </FormGroup>
-                      <FormGroup className="form-check">
+
+                      <FormGroup>
+                        <Label htmlFor="linkedinLink">LinkedIn Link</Label>
+                        <Field
+                          name="linkedinLink"
+                          type="text"
+                          className={`form-control${
+                            errors.linkedinLink && touched.linkedinLink ? ' is-invalid' : ''
+                          }`}
+                        />
+                        <ErrorMessage name="linkedinLink" component="div" className="invalid-feedback" />
+                      </FormGroup>
+
+                      <FormGroup inline className="form-check">
                         <Field
                           type="checkbox"
                           name="acceptTerms"
                           id="acceptTerms"
                           className={`form-check-input ${
-                            errors.acceptTerms && touched.acceptTerms ? 'is-invalid' : ''
+                            errors.acceptTerms && touched.acceptTerms ? ' is-invalid' : ''
                           }`}
-                          style={{ fontSize: '18px' }}
                         />
-                        <Label htmlFor="acceptTerms" className="form-check-label" style={{ fontSize: '18px' }}>
+                        <Label htmlFor="acceptTerms" className="form-check-label">
                           Accept Terms & Conditions
                         </Label>
                         <ErrorMessage
@@ -282,10 +310,10 @@ const RegisterFormikRecruiter = () => {
                         />
                       </FormGroup>
                       <FormGroup>
-                        <Button type="submit" color="dark" className="me-2" style={{ fontSize: '18px' }}>
+                        <Button type="submit" color="primary" className="me-2">
                           Register
                         </Button>
-                        <Button type="reset" color="secondary" style={{ fontSize: '18px' }}>
+                        <Button type="reset" color="secondary">
                           Reset
                         </Button>
                       </FormGroup>
