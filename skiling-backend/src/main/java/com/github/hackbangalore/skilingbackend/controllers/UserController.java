@@ -2,9 +2,11 @@ package com.github.hackbangalore.skilingbackend.controllers;
 
 import com.github.hackbangalore.skilingbackend.dtos.UserResponseDto;
 import com.github.hackbangalore.skilingbackend.models.User;
+import com.github.hackbangalore.skilingbackend.models.UserType;
 import com.github.hackbangalore.skilingbackend.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -14,6 +16,11 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("all/{userType}")
+    public List<UserResponseDto> getAllUsers(@PathVariable UserType userType) throws ExecutionException, InterruptedException {
+        return userService.getAllUsers(userType);
     }
 
     @GetMapping("/{userID}")

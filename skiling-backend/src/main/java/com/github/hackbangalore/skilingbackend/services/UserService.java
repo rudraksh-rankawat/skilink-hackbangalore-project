@@ -2,6 +2,7 @@ package com.github.hackbangalore.skilingbackend.services;
 
 import com.github.hackbangalore.skilingbackend.dtos.UserResponseDto;
 import com.github.hackbangalore.skilingbackend.models.User;
+import com.github.hackbangalore.skilingbackend.models.UserType;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
@@ -10,7 +11,11 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class UserService {
@@ -43,4 +48,27 @@ public class UserService {
         Firestore dbFireStore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFireStore.collection("user").document(userId).delete();
     }
+    
+public List<UserResponseDto> getAllUsers(UserType userType) {
+    Firestore dbFireStore = FirestoreClient.getFirestore();
+    List<User> users = new ArrayList<>();
+    try {
+        List<ApiFuture<DocumentSnapshot>> futures = StreamSupport.stream(dbFireStore.collection("user").listDocuments().spliterator(), false)
+                .map(documentReference -> documentReference.get())
+                .collect(Collectors.toList());
+
+        for (ApiFuture<DocumentSnapshot> future : futures) {
+            DocumentSnapshot document = future.get();
+            if (document.exists()) {
+                User user = document.toObject(User.class);
+                if (user.getUserType() == userType) {
+                    users.add(user);
+                }
+            }
+        }
+    } catch (ExecutionException | InterruptedException e) {
+        e.printStackTrace();
+    }
+    return users.stream().map(UserResponseDto::new).collect(Collectors.toList());
+}
 }
