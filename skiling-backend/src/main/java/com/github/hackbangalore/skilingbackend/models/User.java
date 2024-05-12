@@ -23,4 +23,6 @@ public class User {
     private UserType userType;
     private List<UserProject> userProjects;
     private List<String> skills;
+    private List<String> gitHubLanguages;
+    private String aiAnalysis; // this analysis will be around 100 - 200 words long
 }
