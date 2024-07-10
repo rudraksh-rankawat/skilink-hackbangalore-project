@@ -1,4 +1,4 @@
-# Skilink PRD (Product Requirements Document)
+# Skilink: AI-powered Freelancing Platform
 
 ## 1. Introduction
 
